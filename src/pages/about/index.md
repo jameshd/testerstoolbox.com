@@ -1,19 +1,11 @@
 ---
-templateKey: 'about-page'
-path: /about
-title: About our values
+templateKey: about-page
+title: Bacon is...
 ---
-### Shade-grown coffee
-Coffee is a small tree or shrub that grows in the forest understory in its wild form, and traditionally was grown commercially under other trees that provided shade. The forest-like structure of shade coffee farms provides habitat for a great number of migratory and resident species.
+Bacon ipsum dolor amet pig flank shoulder filet mignon landjaeger, cow picanha turkey doner. Ground round hamburger drumstick brisket prosciutto tail pancetta jowl. Picanha shank leberkas corned beef frankfurter pork loin pork ribeye alcatra tri-tip landjaeger. Venison short loin shankle capicola alcatra chicken ham turkey pastrami.
 
-### Single origin
-Single-origin coffee is coffee grown within a single known geographic origin. Sometimes, this is a single farm or a specific collection of beans from a single country. The name of the coffee is then usually the place it was grown to whatever degree available.
+Biltong short ribs turkey, chicken jerky tri-tip kielbasa buffalo sausage bresaola cupim landjaeger. Beef ribs ham porchetta short ribs. Shankle pastrami buffalo leberkas alcatra beef chislic shoulder frankfurter pork belly pork loin meatball. Biltong fatback shankle sirloin, rump shank pancetta bresaola. Salami sirloin pig kevin ham pork, pork chop boudin alcatra brisket.
 
-### Sustainable farming
-Sustainable agriculture is farming in sustainable ways based on an understanding of ecosystem services, the study of relationships between organisms and their environment. What grows where and how it is grown are a matter of choice and careful consideration for nature and communities.
+Tail prosciutto tri-tip venison. Jerky porchetta cupim alcatra. Ribeye short loin spare ribs, shank alcatra tongue boudin prosciutto sausage chislic. Meatball ham hock shoulder drumstick, shank kevin shankle salami ribeye capicola porchetta. Jowl beef ribs ground round sausage rump leberkas shoulder sirloin t-bone. Tail pork beef, tri-tip buffalo ham hock beef ribs tenderloin ribeye doner shank pork belly.
 
-### Direct sourcing
-Direct trade is a form of sourcing practiced by some coffee roasters. Advocates of direct trade practices promote direct communication and price negotiation between buyer and farmer, along with systems that encourage and incentivize quality.
-
-### Reinvest profits
-We want to truly empower the communities that bring amazing coffee to you. That’s why we reinvest 20% of our profits into farms, local businesses and schools everywhere our coffee is grown. You can see the communities grow and learn more about coffee farming on our blog.
+Brisket ham hock chuck, chicken meatball short ribs porchetta pork chop. Pork loin strip steak meatloaf bresaola swine short loin chislic tri-tip filet mignon. Picanha cow pork loin swine. Ball tip andouille chuck shoulder picanha. Tongue ground round meatball, pork belly buffalo turkey turducken pig ball tip corned beef.

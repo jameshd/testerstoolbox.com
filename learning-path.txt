@@ -1,0 +1,352 @@
+General Topics
+Microservices
+Microservices are terrible, stick with monoliths. Seriously. Waaaay less hassle. But, if you're on the Microservices path, you'll find they're not so bad. Microservices are a way of decomposing your application into functional components by making a series of smaller applications that talk to tone another. Each of the small applications should be responsible for one area of information, not a task - Task based microservices are dreadful. Using techniques should as domain-driven design and event storming can help determine boundaries in your system and form the basis for a good microservice architecture. 
+
+Shop Direct are on the microservice path. They are looking to break up their monolith (ATG - now, Oracle Commerce) into smaller, more manageable services. Starting with the front-end, they have chosen to split out page rendering from ATG and use a microservice architecture to replace the presentation layer. This is because there are two codebases for desktop and mobile, making change slow and error prone. The new microservice presentation layer will be responsible for stitching together several other smaller "page fragments" into a page. A trait of microservices is that they are independently deploy-able, meaning you don't have to release your entire Oracle Commerce application, just to correct a typo. Each page fragment or page can be released independently and rapidly, meaning we have the potential to make swift, low risk changes. 
+
+Further Reading:
+
+Microservices
+
+https://martinfowler.com/articles/microservices.html
+
+REST
+Here is a much better guide to REST than I have time to write... GET, POST, PUT and DELETE - right? 
+
+Further Reading:
+
+https://www.codecademy.com/articles/what-is-rest
+
+getpostman.com - Postman is a REST client which can help you inspect services.
+
+Containers
+Containers are a way of packaging up applications to run on any environment that supports containers. e.g. You could create a container for an application and deploy it to a Windows or Linux host machine and not have to deal with the underlying complexity of differences in host operating systems. They have revolutionized the way applications are deployed. Containers for different applications can run side-by-side on the same host machine. e.g. a PHP web app could run on the same host machine as a java application. 
+
+The most commonly used container runtime is called Docker. More on that later. 
+
+Further Reading:
+
+https://www.docker.com/resources/what-container
+
+https://aws.amazon.com/containers/
+
+Automated Testing
+Using microservices naturally dictates due to the independent release cycle that testing has to be automated. For example, you cannot be attempting to deploy five or six separate applications and be blocked waiting for someone to manually check each one. It's not practical and does not scale. the simplest way to progress is to automate as much of the testing as possible. Be that unit tests, contract tests or end-to-end browser based tests. There needs to be automation, otherwise you are missing out on the speed of development that microservices affords you. 
+
+Git Version Control
+A basic understanding of git is essential to working in Rebuild or any modern web project. Git is a version control system and is the most common method of version control used on the internet. There's many SaaS providers who offer hosted git solutions such as Github, Gitlab and our choice BitBucket.
+
+It's imperative to know a few basic git commands when working locally in order to be able to make and submit code changes. 
+
+Further reading:
+
+Git Basics
+
+Github's Git Cheat sheet
+
+Oh shit, Git! - for when you break many things
+
+Continuous Integration
+Continuous Integration or CI as it's commonly known is the process of having developers check in their changes at least once per day to a shared repository. Those changes along with everyone else's are then verified to produce a build against which automated tests are run. we use a tool called Jenkins to facilitate our CI process and pipeline.
+
+Further reading:
+
+https://www.thoughtworks.com/continuous-integration
+
+https://docs.microsoft.com/en-us/azure/devops/learn/what-is-continuous-integration
+
+Continuous Delivery
+Continuous delivery builds upon the idea of CI to the point where every build produces a release-able artifact(s). In our case we produce a container image with all the latest code changes baked into it, ready to be deployed to one of our AWS clusters. Note the "ready to be deployed". If we were practicing Continuous Deployment (our ultimate goal) we would then ship this artifact straight to a production environment.
+
+Further reading:
+
+https://docs.microsoft.com/en-us/azure/devops/learn/what-is-continuous-delivery
+
+https://continuousdelivery.com/
+
+Our Environments
+Find everything you need to know about our environments including integrations points and release cadence on the DCX Environments
+
+Cloud Technologies
+AWS
+ECS / Fargate
+Amazon ECS and Fargate are both mechanisms for running containers on Amazon's Infrastructure. ECS requires us to manage the underlying host machines and with Fargate, Amazon takes care of all that for you. We use a mixture of both technologies. We use ECS for our development and production environments and tend to use Fargate to run ad-hoc tools like the Pact Broker.
+
+Further reading
+
+https://aws.amazon.com/containers/
+
+https://aws.amazon.com/containers/services/
+
+https://aws.amazon.com/ecs/
+
+https://aws.amazon.com/fargate/
+
+
+
+Dynamo
+Dynamo DB is a Database Service offered by Amazon. It's a NoSQL database, meaning it stores JSON like Documents, rather than rows and columns like a relational database. It's capable of massive scale and automatically scales to meet our demands. It's used as the default datastore for all our microservices right now. It's also relatively cheap to store and retrieve data and uses a pay for what you use pricing model with no upfront costs.
+
+Further reading
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html
+
+
+
+SQS (simple queue service)
+Exactly as the name implies, simple queue service is a service we use to exchange messages via queues. Queues allow you to decouple your architectural components and delay processing if needs be. They provide you the option to avoid the common request / response pairing of most web applications by having each application talk to the queue. By placing a message on a queue you can defer processing that message. It allows your architectures to be asynchronous. SQS is a highly scalable managed service from AWS.
+
+Further reading
+
+https://aws.amazon.com/sqs/
+
+https://aws.amazon.com/message-queue/benefits/
+
+
+
+SNS (simple notification service)
+Simple notification service is a scalable and managed service from AWS. By sending messages to SNS, we can control where and how the message is distrusted. A common pairing is SNS and SQS to push messages onto queues.
+
+Further reading
+
+https://aws.amazon.com/sns/
+
+
+
+S3
+S3 stands for Simple Storage Service, clever naming eh... who says naming things is hard? Basically, think of S3 as a massive unlimited file system - with extras. In S3 you upload content which is replicated across at least 3 locations making it highly resilient to failures and outages. We use it to store static assets such as images, CSS and JavaScript. 
+
+Further reading
+
+https://aws.amazon.com/s3/
+
+Cloudwatch
+Cloudwatch is a reporting tool that collects metrics from all AWS services and presents them in graphs and logs. We use it for capturing many metrics which make their way onto the dashboards around the office. It's a really useful tool to investigate issues and see spikes in traffic / CPU etc.
+
+
+
+Further reading
+
+https://aws.amazon.com/cloudwatch/
+
+IAM
+IAM stands for Identity Access Management, Again, some sound naming from Amazon there - that's why they're the best at everything. Basically, if you haven't got an IAM account, you can't use our AWS infrastructure or tooling. Seriously, IAM is responsible for AWS Console access. Secret and access keys and enforces our Multi Factor Authentication policy. 
+
+EC2
+Elastic Compute-Cloud, E C 2... get it? OMG they're good at naming things. in a nutshell, EC2 is the service from Amazon to allow you to rent computing power from them. You can start up virtual machines of any size or scale to suit your workload, there are different pricing models and lots of other great services under the EC2 umbrella like load balancers and Security Groups. 
+
+Further reading
+
+https://aws.amazon.com/ec2/
+
+https://aws.amazon.com/elasticloadbalancing/
+
+VPC
+Creatively named VPC stands for Virtual Private Cloud. The naming team was on holiday when this service was born, clearly. it's a way of isolating resources in the cloud, creating public and private subnets and the like. I'm not really sure beyond that! Networky stuff... err I need an adult now?
+
+Further reading
+
+https://aws.amazon.com/vpc/
+
+Docker
+Docker... is... the... future... seriously. If you don't have a basic understanding of what Docker is and allows you to do. WHERE HAVE YOU BEEN??? Docker is a way of taking the aforementioned (always like using that word) Containers and running them, making sure they start up and shut down when ever we need them to. Docker is great for say packaging up tricky to configure software like Selenium Grid and being able to run a Grid with multiple hubs from a few Docker images. Images are blueprints, once you run an image, it becomes a container. 
+
+The best way to think about Docker and Containers is to think of their physical counterparts. Historically, ships would have all different shapes and sizes of cargo. Unloading said cargo in a port was both dangerous and could not be done in a standardised repeatable way. Along came Maersk and who imposed rules that everything must fit inside a shipping container if you want to put something on one of their ships. To unload a ship was now a simple matter of having the same cranes at every port in the world. Think of Docker as the cranes and Containers as Containers, and your application as the cargo. By having your application packaged inside a Container you can operate it on any Machine (Crane). 
+
+https://gcaptain.com/containership-mumbai-maersk-loads-world-record-19038-teus-in-malaysia/
+
+
+Languages
+In Rebuild we've chosen a Tech stack which the company is quite familiar with. ATG our commerce solution is a Java based. We have an entire development workforce well-versed in Java so it made sense to stick with that. We also introduced a new Front-end stack to allow us to develop reusable solutions. The front-end stack is a combination of NodeJS and React. Read more about these below. 
+
+Java
+We use Java as our language of choice for our back-end microservices. Java was chosen for the reason outlined above: Team familiarity. 
+
+As a tester you may have worked with Javas to power Selenium based scripts, this is a brand new ball game, there's a lot of new Java at play here. Further reading is a must.
+
+
+
+Further reading
+
+Reading: https://www.vogella.com/tutorials/JavaIntroduction/article.html
+
+Watching: https://testautomationu.applitools.com/java-programming-course/
+
+JavaScript / ES6
+JavaScript is being used to power our Front-end fragments and services. This is nothing to do with Java, mentioned above. It's completely different. Back in the late 90's to try and piggy back on the popularity of Java, LiveScript as it was known then at Netscape was re-branded to JavaScript. So you had Java and JavaScript...it was marketing from either Sun or Netscape, no one remembers, or seems to care these days. Javascript is probably the most popular language to code in for the web, surpassing languages like PHP, Ruby and Python (which is making a comeback). JavaScript has gone from it's roots at Netscape as a way of doing pop-up windows and alert boxes in the browser, to being a fully fledged language that can run on both client and server. 
+
+So what's ES6? ES6 is a modern version of JavaScript. For years no one really took JavaScript seriously it was plagued with issue of incompatibilities across browsers, then Douglas Crockford and some of his buddies decided to do some cool stuff with it and talk about it at conferences, John Resig brought out jQuery which, basically lowered the barrier to entry to your ankles and the popularity of JavaScript took off. So, with many people using a language that hadn't been updated for almost two decades and which had suddenly become cool again, it was decided to give JavaScript a bit of a refresh. ES6 was that refresh. ES6 added new features to the language and new syntax which made it all the more easier to build cool stuff with. jQuery continues being popular, but with more people discovering the power of JavaScript, more and more frameworks have been built, such as React (Facebook's tool of choice), Angular (Google) and Vue (ex Google I think) to name a few of the most used. 
+
+ES6 has gone on to ES7 and ES2018 and now no one has a clue anymore what version of JavaScript they're using. So, they throw in a tool called Babel to transpile it all down to the very basic version used 20 years ago that all systems understand and can parse. But, it's fun to use. 
+
+Applications
+Spring Boot
+Spring Boot is an open-source Java framework for building web applications, specifically targeted for use within a Microservice architecture. 
+
+ATG
+ATG is the old name for a COTS (commercial off the shelf) application - now named Oracle Commerce. 
+
+Node 
+Node is a JavaScript runtime. Historically, Javascript has only ever ran in Client web browsers, meaning your web site had to send a request to a server, to be handled by some Java / PHP / Ruby process which did the dynamic server side bits of processing before sending the page back to the client. Only then, when the client has all the source code, can JavaScript kick and begin to work it's magic. This diagram shows how many traditional web applications handle requests: 
+
+
+
+In this diagram Apache Tomcat is passing the requests to a Java application. 
+
+
+
+
+
+
+
+
+
+
+
+What NodeJS allowed developers to do, was replace the Java application and tools like Apache Tomcat with JavaScript applications, capable of handling HTTP requests. This meant, you no longer had separate languages for front and back end development. You could have your entire stack be JavScript. 
+
+Node also meant that requests were handled slightly differently, using asynchronous event loops. I won't go into detail, but basically, Node apps handling web traffic are capable of handling a lot more traffic on a single thread than say, Java or PHP. Because of the internal architecture of Node itself. 
+
+Further reading
+
+https://nodejs.org/en/about/
+
+
+
+Package Managers 
+The other thing that Node has brought is packages. Packages aren't a new concept in programming, Java etc have had packages for years. However, Node made that barrier to entry for using packages extremely low, and everything in JavaScript is a package these days. NPM is the default package manager for Node applications. To accomplish anything of use with NodeJS you're going to find yourself typing npm install <package name>. A command which will head off to the internet to find your package and download it to your project folder. This leads to very lightweight applications with a lot of dependencies on other projects. Modular applications like this are great, as you're not finding yourself re-inventing any wheels, you can borrow other people's work and directly include it in your project.
+
+Further reading
+
+https://nodejs.org/en/knowledge/getting-started/npm/what-is-npm/
+
+https://devhints.io/npm - Cheat sheet!
+
+Express
+Express.js, or simply Express, is a web application framework for Node.js, released as free and open-source software under the MIT License. It is designed for building web applications and APIs.[3] It has been called the de facto standard server framework for Node.js.
+
+I nicked that from Wikipedia... says it all really...
+
+Express is a powerful framework for building things like MVC based web apps, API's etc. 
+
+Further reading
+
+https://expressjs.com/en/starter/faq.html
+
+
+
+Axios
+Worth mentioning Axios here as it's not a major player in our architecture on the front-end, however it's a common Node package we include which allows our code to make HTTP calls to API's. Full docs are very helpful. 
+
+Further reading
+
+https://github.com/axios/axios
+
+https://kapeli.com/cheat_sheets/Axios.docset/Contents/Resources/Documents/index
+
+React
+Really? You have no idea what React is? I am face palming so hard right now. Here's some words from StackShare on React
+
+Reactis a tool in theJavascript UI Librariescategory of a tech stack.
+Reactis an open source tool with135.7KGitHub stars and25.5KGitHub forks. Here’s a link toReact's open source repository onGitHub
+Who uses React? 
+7680 companies reportedly use React in their tech stacks, including Airbnb, Uber, and Facebook and now, Shop Direct. 
+16661 developers on StackShare have stated that they use React.
+
+
+So where have you been? 
+
+React was a game changer in terms of JavaScript frameworks. You had Angular from Google, which was nice, but you couldn't do individual components easily. React changed all that. By allowing developers to break the separation of CSS and JS in HTML and basically smashing everything into one file and calling it a component. Reach was created at Facebook and has just exploded in terms of popularity.. I'm surprised you're still reading this to be fair. It's spawned so many exciting new developments on the web. For example one cool thing React can do is to render to a string on the server. So all that beautiful server side JavScript can be output, then the client side React just picks up where the server left off. It's a.maze.zing. What are you still doing here? 
+
+Go build something with React!
+
+Further reading
+
+https://reactjs.org
+
+https://reactforbeginners.com
+
+https://stackshare.io/react
+
+https://github.com/facebook/create-react-app
+
+
+
+NGINX 
+NGINX is an open source web server, reverse proxy and http cache. Sounds good eh?! Basically, it started life as an alternative to Apache which at the time back in 2004 was the only option for a web server (discounting Microsoft's IIS). NGINX quickly rose to prominence through it's ease of use and small memory footprint. NGINX is also a helluva lot faster than Apache, with some benchmarks reporting seeing a 2.5 times increase in speed. In a world where performance matters, NGINX is the sensible choice, while Apache is still used for masses of websites, any sites expecting large volumes of traffic will choose NGINX.
+
+Build Tools
+We only got one! Cos that's all we need.
+
+Jenkins
+Again, like React if you've not heard of Jenkins - where have you been? Jenkins has long been the default way to execute your CI pipeline / automated builds in the open-source world. It's easy to spin up and configure and has a very low barrier to entry. Jenkins also has a great community behind it and multiple plugins to cover every scenario you can think of. You may be familar with CI build tools such as Bamboo, Teamcity, CruiseControl or Travis CI - these all do a similar job to Jenkins of running your automated jobs upon every code change. 
+
+It's interesting to read the history of Jenkins as it was formally called Hudson and under the stewardship of Oracle who seemingly ran it into the ground. 
+
+
+
+Further reading
+
+Hudson vs Jenkins: https://www.devteam.space/blog/continuous-integration-hudson-vs-jenkins/
+
+
+
+Testing
+Unit testing
+JUnit 
+Spock
+Gradle
+Jest / Chai / Mocha
+Test driven development (TDD)
+Exploratory 
+Cross browser
+Cross devices
+Contract Testing
+PACT
+Acceptance Testing
+Postman
+
+Postman is a tool for designing and testing RESTful APIs. Using Postman it is easy to quickly test endpoints against different environments.  You can create tests for your endpoint by passing different data and utilise Javascript to automate the validation of the endpoint responses.  You can very quickly run all your selected tests cases through the test runner, or utilise Newman to run your tests as part of a CI pipeline.
+
+Postman can be used through the browser or as a stand alone application.  The stand alone application provides access to the Bootcamp, where users can complete interactive lessons to improve their knowledge of the tool.
+
+Further reading
+
+https://www.getpostman.com/
+
+https://learning.getpostman.com/docs/postman/launching_postman/installation_and_updates/
+
+End to End
+Supported Browsers
+Cypress
+Selenium
+Mocking
+Unit Test Mocking
+Service Mocking
+Security Testing
+ZAAP
+OWASP Dependency Checker
+Pen testing
+Build hashing
+Vulnerable items - file upload, free text
+Access management
+Firewalls
+IAM
+Accessibility testing
+Resiliency Testing
+Chaos Monkey etc
+Performance Testing - Performance Test Visitors
+JMeter 
+Perf Test Framework
+Peaks
+Soak
+Stress
+GDPR
+Squad level - Non-Functional and Functional considerations
+Misc
+Surface Hubs
+Slack
+Skype
+Jira
+Akamai
+Rapid Learning
